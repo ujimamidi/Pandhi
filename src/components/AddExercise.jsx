@@ -1,17 +1,27 @@
 import { useEffect, useState } from "react";
 
-function AddExercise() {
+function AddExercise({exercises, setExercises}) {
 
-    const [exercises, setExercises] = useState([]);
     const [userInput, setUserInput] = useState("");
+
+    // creates exercise object
+    const exerciseItem = {
+        id: crypto.randomUUID(),
+        exerciseName: userInput,
+        sets: []
+    }
 
     const handleInput = (e) => {
         setUserInput(e.target.value);
     }
 
     const handleAddExercise = () => {
+        if (userInput.trim() === "") {
+            return;
+        }
+
         console.log(userInput)
-        setExercises(prev => [...prev, userInput]); // take old array, and add new element to it.
+        setExercises(prev => [...prev, exerciseItem]); // take old array, and add new element to it.
 
         // clear input
         setUserInput('');
